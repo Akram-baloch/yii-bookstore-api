@@ -30,6 +30,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'enableSession' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,6 +58,7 @@ $config = [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' =>
                 [ 'api/book','api/author','api/category','api/user']],
+                'POST auth/login' => 'auth/login',
             ],
         ],
         
