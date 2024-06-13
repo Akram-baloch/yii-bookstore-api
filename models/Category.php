@@ -47,4 +47,9 @@ class Category extends \yii\db\ActiveRecord
             'deleted_at' => 'Deleted At',
         ];
     }
+
+    public function getBooks()
+    {
+        return $this->hasMany(Book::class, ['category_id' => 'id']);
+    }
 }

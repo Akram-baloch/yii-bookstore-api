@@ -47,4 +47,9 @@ class Author extends \yii\db\ActiveRecord
             'deleted_at' => 'Deleted At',
         ];
     }
+
+    public function getBooks()
+    {
+        return $this->hasMany(Book::class, ['author_id' => 'id']);
+    }
 }

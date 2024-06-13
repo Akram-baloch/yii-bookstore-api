@@ -21,6 +21,9 @@ $config = [
                 'application/json' => 'yii\web\JsonParser',
             ],
         ],
+        'corsFilter' => [
+            'class' => 'app\components\Cors',
+        ],
         'response' => [
             'format' => Response::FORMAT_JSON,
         ],
@@ -51,17 +54,16 @@ $config = [
             ],
         ],
         'db' => $db,
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' =>
-                [ 'api/book','api/author','api/category','api/user']],
-                'POST auth/login' => 'auth/login',
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['api/book', 'api/author', 'api/category', 'api/user','api/order']],
+                    'POST auth/login' => 'auth/login',
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];

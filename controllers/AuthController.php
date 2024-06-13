@@ -3,10 +3,9 @@
 namespace app\controllers;
 
 use Yii;
-use yii\rest\Controller;
 use app\models\User;
 use yii\web\Response;
-use yii\filters\auth\HttpBearerAuth;
+use yii\rest\Controller;
 
 class AuthController extends Controller
 {
@@ -14,11 +13,37 @@ class AuthController extends Controller
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
+        $behaviors['corsFilter'] = [
+            'class' => \yii\filters\Cors::class,
+            'cors' => [
+                'Origin' => ['http://localhost:4200'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['Authorization', 'Content-Type'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Max-Age' => 86400,
+                'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
+            ],
+        ];
         $behaviors['authenticator'] = [
-            'class' => HttpBearerAuth::class,
-            'except' => ['login', 'signup'],
+            'class' => \yii\filters\auth\HttpBearerAuth::class,
+            'except' => ['login', 'signup', 'options', 'logout','profile'],
         ];
         return $behaviors;
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['options'] = [
+            'class' => 'yii\rest\OptionsAction',
+        ];
+        return $actions;
+    }
+
+    public function actionOptions($id = null)
+    {
+        Yii::$app->response->statusCode = 200;
     }
 
     public function actionLogin()
@@ -71,23 +96,20 @@ class AuthController extends Controller
         }
     }
 
-    // public function actionLogout()
-    // {
-    //     Yii::$app->response->format = Response::FORMAT_JSON;
 
-    //     $user = Yii::$app->user->identity;
 
-    //     if ($user) {
-    //         $user->auth_key = null;
-    //         if ($user->save()) {
-    //             return $this->asJson(['success' => true, 'message' => 'Logged out successfully']);
-    //         } else {
-    //             return $this->asJson(['success' => false, 'message' => 'Failed to logout', 'errors' => $user->errors]);
-    //         }
-    //     } else {
-    //         return $this->asJson(['success' => false, 'message' => 'No user logged in']);
-    //     }
-    // }
+    public function actionLogout()
+    {
+
+        $userID = Yii::$app->user->identity;
+
+        $userModel = User::find()->where(['id' => $userID])->one();
+        if (!empty($userModel)) {
+            $userModel->token = NULL;
+            $userModel->save(false);
+        }
+        Yii::$app->user->logout(false);
+    }
 
     public function actionProfile()
     {
@@ -96,7 +118,7 @@ class AuthController extends Controller
         $user = Yii::$app->user->identity;
 
         if ($user) {
-            return $this->asJson(['success' => true, 'username' => $user->name,'email'=>$user->email]);
+            return $this->asJson(['success' => true, 'username' => $user->name, 'email' => $user->email]);
         } else {
             return $this->asJson(['success' => false, 'message' => 'No user logged in']);
         }

@@ -36,7 +36,7 @@ class Book extends ActiveRecord
     {
         return [
             [['name', 'author_id', 'category_id', 'price', 'number_of_pages'], 'required'],
-            [['description'], 'string'],
+            [['description','image'], 'string'],
             [['author_id', 'category_id', 'number_of_pages'], 'integer'],
             [['price'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
@@ -53,6 +53,7 @@ class Book extends ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
+            'image' => 'Image', 
             'author_id' => 'Author ID',
             'category_id' => 'Category ID',
             'price' => 'Price',
@@ -61,5 +62,16 @@ class Book extends ActiveRecord
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(Author::class, ['id' => 'author_id']);
+    }
+
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 }
