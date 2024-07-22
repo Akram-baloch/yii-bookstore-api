@@ -40,6 +40,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['auth_key'], 'string', 'max' => 32],
             [['name'], 'unique'],
             [['email'], 'unique'],
+            [['email'], 'email'],
+            ['role','in','range' =>['user','admin']],
         ];
     }
 
@@ -57,6 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'role' => 'Role',
         ];
     }
 
