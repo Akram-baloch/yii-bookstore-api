@@ -39,6 +39,7 @@ class BookController extends ActiveController
             $response[] = [
                 'id' => $book->id,
                 'name' => $book->name,
+                'image' => $book->image,
                 'description' => $book->description,
                 'author' => $book->author->name,
                 'category' => $book->category->name,
@@ -63,6 +64,7 @@ class BookController extends ActiveController
             return [
                 'id' => $book->id,
                 'name' => $book->name,
+                'image' => $book->image,
                 'description' => $book->description,
                 'author' => $book->author->name,
                 'category' => $book->category->name,

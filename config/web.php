@@ -61,6 +61,7 @@ $config = [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => ['api/book', 'api/author', 'api/category', 'api/user','api/order']],
                     'POST auth/login' => 'auth/login',
+                    'GET user-orders/<userId:\d+>' => 'order/user-orders',
             ],
         ],
 

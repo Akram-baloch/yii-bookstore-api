@@ -1,37 +1,13 @@
 <?php
 
 namespace app\models;
-
-use Yii;
 use yii\db\ActiveRecord;
-
-/**
- * This is the model class for table "books".
- *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property int $author_id
- * @property int $category_id
- * @property float $price
- * @property int $number_of_pages
- * @property string|null $created_at
- * @property string|null $updated_at
- * @property string|null $deleted_at
- */
 class Book extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'books';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -43,10 +19,6 @@ class Book extends ActiveRecord
             [['name'], 'string', 'max' => 255],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [

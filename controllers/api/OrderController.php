@@ -1,14 +1,11 @@
 <?php
-
 namespace app\controllers\api;
-
-use Yii;
 use app\models\Order;
-use yii\filters\Cors;
-use yii\web\Response;
-use yii\rest\Controller;
 use app\models\OrderItem;
-
+use Yii;
+use yii\filters\Cors;
+use yii\rest\Controller;
+use yii\web\Response;
 class OrderController extends Controller
 {
     public $modelClass = 'app\models\order';
@@ -41,12 +38,33 @@ class OrderController extends Controller
 
     public function actionList()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $listOrder = Order::find()->all();
-        return ['status' => 'success', 'data' => $listOrder];
+        Yii::$app->response->format = Response::FORMAT_JSON;    
+        $userId = Yii::$app->request->get('uid');
+        $orders = Order::find()->where(['user_id' => $userId])->all();
+        return $this->asJson(['status' => 'success', 'data' => $orders]);
     }
-
-
+    
+    public function actionOrderitem()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $orderId = Yii::$app->request->get('orderId');    
+        $orderItems = OrderItem::find()
+            ->joinWith('book') 
+            ->where(['order_id' => $orderId])
+            ->all();
+    
+        $data = [];
+        foreach ($orderItems as $orderItem) {
+            $data[] = [
+                'id' => $orderItem->id,
+                'order_id' => $orderItem->order_id,
+                'book_name' => $orderItem->book ? $orderItem->book->name : null,
+                'quantity' => $orderItem->quantity,
+                'price' => $orderItem->price,
+            ];
+        }
+        return $this->asJson(['status' => 'success', 'data' => $data]);
+    }
     public function actionCheckout()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;

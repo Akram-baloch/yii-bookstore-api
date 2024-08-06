@@ -1,15 +1,8 @@
 <?php
 
 use yii\db\Migration;
-
-/**
- * Handles the creation of table `{{%authors}}`.
- */
 class m240530_135522_create_authors_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $this->createTable('{{%authors}}', [
@@ -20,10 +13,6 @@ class m240530_135522_create_authors_table extends Migration
             'deleted_at' => $this->timestamp()->null(),
         ]);
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%authors}}');

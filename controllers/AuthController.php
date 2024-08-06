@@ -1,7 +1,6 @@
 <?php
 
 namespace app\controllers;
-
 use Yii;
 use app\models\User;
 use yii\web\Response;
@@ -9,7 +8,6 @@ use yii\rest\Controller;
 
 class AuthController extends Controller
 {
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -45,7 +43,6 @@ class AuthController extends Controller
     {
         Yii::$app->response->statusCode = 200;
     }
-
     public function actionLogin()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -95,14 +92,9 @@ class AuthController extends Controller
             return $this->asJson(['success' => false, 'message' => 'Failed to create user', 'errors' => $user->errors]);
         }
     }
-
-
-
     public function actionLogout()
     {
-
         $userID = Yii::$app->user->identity;
-
         $userModel = User::find()->where(['id' => $userID])->one();
         if (!empty($userModel)) {
             $userModel->token = NULL;

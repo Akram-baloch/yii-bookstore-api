@@ -1,15 +1,7 @@
 <?php
-
 use yii\db\Migration;
-
-/**
- * Handles the creation of table `{{%categories}}`.
- */
 class m240530_135648_create_categories_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $this->createTable('{{%categories}}', [
@@ -20,10 +12,6 @@ class m240530_135648_create_categories_table extends Migration
             'deleted_at' => $this->timestamp()->null(),
         ]);
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%categories}}');

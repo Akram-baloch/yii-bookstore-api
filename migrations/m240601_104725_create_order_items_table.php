@@ -1,15 +1,8 @@
 <?php
 
 use yii\db\Migration;
-
-/**
- * Handles the creation of table `{{%order_items}}`.
- */
 class m240601_104725_create_order_items_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $this->createTable('{{%order_items}}', [
@@ -50,10 +43,6 @@ class m240601_104725_create_order_items_table extends Migration
             'CASCADE'
         );
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropForeignKey(

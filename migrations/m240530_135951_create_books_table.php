@@ -1,15 +1,8 @@
 <?php
 
 use yii\db\Migration;
-
-/**
- * Handles the creation of table `{{%books}}`.
- */
 class m240530_135951_create_books_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $this->createTable('{{%books}}', [
@@ -43,10 +36,6 @@ class m240530_135951_create_books_table extends Migration
             'CASCADE',
         );
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%books}}');

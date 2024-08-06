@@ -1,15 +1,8 @@
 <?php
 
 use yii\db\Migration;
-
-/**
- * Handles the creation of table `{{%users}}`.
- */
 class m240531_051632_create_users_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $this->createTable('{{%users}}', [
@@ -25,10 +18,6 @@ class m240531_051632_create_users_table extends Migration
         $this->createIndex('idx-users-name', '{{%users}}', 'name', true);
         $this->createIndex('idx-users-email', '{{%users}}', 'email', true);
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%users}}');

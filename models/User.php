@@ -4,32 +4,12 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
-/**
- * This is the model class for table "users".
- *
- * @property int $id
- * @property string $name
- * @property string $password
- * @property string $auth_key
- * @property string|null $access_token
- * @property string $email
- * @property string|null $created_at
- * @property string|null $updated_at
- */
 class User extends ActiveRecord implements IdentityInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'users';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -44,10 +24,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['role','in','range' =>['user','admin']],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [

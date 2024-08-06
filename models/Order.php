@@ -4,29 +4,12 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-
-/**
- * This is the model class for table "orders".
- *
- * @property int $id
- * @property int $user_id
- * @property float $total_price
- * @property string $status
- * @property string|null $order_date
- */
 class Order extends ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'orders';
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -37,10 +20,6 @@ class Order extends ActiveRecord
             [['status'], 'string', 'max' => 50],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
